@@ -11,30 +11,30 @@ namespace StartWithAPI.Controllers
     [Route("[controller]")]
     public class UsersController: ControllerBase
     {
-        private AppUserService _service;
+        private IAppUserService _service;
 
-        public UsersController()
+        public UsersController(IAppUserService service)
         {
             //TODO: Use Dependency Injection
-            _service = new AppUserService();
+            _service = service;
         }
 
         [HttpGet]
-        public IEnumerable<AppUser> Get()
+        public async Task<IEnumerable<AppUser>> GetAsync()
         {
-            return _service.GetUsers();
+            return await _service.GetUsers();
         }
         [HttpGet("{id}")]
-        public AppUser GetUser(int id)
+        public async Task<AppUser> GetUserAsync(int id)
         {
-            return _service.GetUser(id);
+            return await _service.GetUser(id);
         }
 
 
         [HttpPost]
-        public void AddUser(AppUser user)
+        public async Task AddUser(AppUser user)
         {
-            _service.AddUser(user);
+            await _service.AddUser(user);
         }
     }
 }

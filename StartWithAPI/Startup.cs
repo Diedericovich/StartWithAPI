@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using StartWithAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,8 @@ namespace StartWithAPI
 {
     public class Startup
     {
+        // zeer belangrijke klasse!!
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +36,15 @@ namespace StartWithAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StartWithAPI", Version = "v1" });
             });
+
+            services.AddDbContext<AppContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
+            });
+
+            services.AddTransient<IAppUserService, AppUserService>();
+            //AddTransient (iedere keer oproepen, maar niet opslaan), AddScope (meerdere gebruikers) of AddSingleton (1 gebruiker)
+            // => allemaal methodes voor dependency injection!
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
