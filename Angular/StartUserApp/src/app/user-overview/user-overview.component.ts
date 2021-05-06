@@ -16,28 +16,27 @@ export class UserOverviewComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit(): void {
-
+    this.getUsers();
   }
 
-  getHeroes(): void {
+  getUsers(): void {
     this.userService.getUsers()
       .subscribe(x => this.users = x);
   }
-
 
   add(name: string) {
     name = name.trim();
     if (!name) {return;}
 
-    this.heroService.addHero({name} as Hero)
-        .subscribe(x => this.heroes.push((x)));
+    this.userService.addUser({name} as user)
+        .subscribe(x => this.users.push((x)));
   }
 
-  deleteHero(hero: Hero) {
-    if (!hero) {return;}
+  deleteUser(user: user) {
+    if (!user) {return;}
 
-    this.heroService.deleteHero(hero)
-          .subscribe(() => this.heroes = this.heroes.filter(x => x != hero));
+    this.userService.deleteUser(user)
+          .subscribe(() => this.users = this.users.filter(x => x != user));
   }
 
 

@@ -2,12 +2,25 @@
 <h2>MY USERS</h2>
 
 
-<ul class="heroes">
-    <li *ngFor="let user of users" 
-    [class.selected]="hero === selectedHero" >      
-        <a routerLink="/detail/{{hero.id}}">
-            <span class="badge">{{ hero.id | mijnpipe}} </span> {{ hero.name | titlecase}}
-        </a>
-        <button class="delete" title="delete hero" (click)="deleteHero(hero)">X</button>
-    </li>
-</ul>
+<div>
+    <label for="new-user">User name:</label>
+    <input for="new-user" type="text" #userName />
+
+    <button class="add-button"
+            (click)="add(userName.value); userName.value=''">
+            ADD
+        </button>
+</div>
+
+<div>
+    <ul class="users">
+        <li *ngFor="let user of users" 
+        [class.selected]="user === selectedUser" >      
+            <a routerLink="/detail/{{user.id}}">
+                <span class="badge">{{ user.id }} </span> {{ user.name | titlecase}}
+            </a>
+            <button class="delete" title="delete user" (click)="deleteUser(user)">X</button>
+        </li>
+    </ul>
+</div>
+

@@ -1,1 +1,15 @@
-<p>user-detail works!</p>
+<button (click)="goBack()">Back</button>
+
+
+<div *ngIf="user">
+    <h2>{{ user.name}} </h2> Details:
+    <div>
+        <span>User Id: </span>{{user.id }}
+    </div>
+    <div>
+        <label for="user-name"> User name: </label>
+        <input id="user-name" ([(ngModel)]="user.name") placeholder="name">
+    </div>
+
+
+</div>

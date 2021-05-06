@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { UserOverviewComponent } from './user-overview/user-overview.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
