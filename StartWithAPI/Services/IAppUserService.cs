@@ -5,8 +5,10 @@ namespace StartWithAPI.Services
 {
     public interface IAppUserService
     {
-        Task AddUser(AppUser user);
-        Task<AppUser> GetUser(int id);
-        Task<List<AppUser>> GetUsers();
+        Task AddUserAsync(AppUser user);
+        Task DeleteUserAsync(int id);
+        Task<AppUser> GetUserAsync(int id);
+        Task<IEnumerable<AppUser>> GetUsersAsync();
+        Task UpdateUserAsync(int id);
     }
 }

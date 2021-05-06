@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace StartWithAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController: ControllerBase
     {
         private IAppUserService _service;
@@ -20,21 +20,35 @@ namespace StartWithAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<AppUser>> GetAsync()
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _service.GetUsers();
+            return await _service.GetUsersAsync();
         }
+
         [HttpGet("{id}")]
         public async Task<AppUser> GetUserAsync(int id)
         {
-            return await _service.GetUser(id);
+            return await _service.GetUserAsync(id);
         }
 
 
         [HttpPost]
-        public async Task AddUser(AppUser user)
+        public async Task AddUserAsync(AppUser user)
         {
-            await _service.AddUser(user);
+            await _service.AddUserAsync(user);
         }
+
+        [HttpPut("{id}")]
+        public async Task UpdateUserAsync(int id)
+        {
+            await _service.UpdateUserAsync(id);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task DeleteUserAsync(int id)
+        {
+            await _service.DeleteUserAsync(id);
+        }
+
     }
 }
