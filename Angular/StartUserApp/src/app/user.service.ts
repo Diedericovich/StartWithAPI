@@ -9,7 +9,8 @@ import { user } from './user';
 export class UserService {
 
   constructor(private http: HttpClient) { }
-  private usersUrl = 'api/users';
+  //link naar entry point in API (via Swagger aan te spreken)
+  private usersUrl = 'https://localhost:44334/api/users';
     httpOptions = {
       headers: new HttpHeaders({'Content-Type':'application/json'})
     };
