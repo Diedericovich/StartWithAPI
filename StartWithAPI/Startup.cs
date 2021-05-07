@@ -44,8 +44,11 @@ namespace StartWithAPI
             });
 
             services.AddTransient<IAppUserService, AppUserService>();
-            //AddTransient (iedere keer oproepen, maar niet opslaan), AddScope (meerdere gebruikers) of AddSingleton (1 gebruiker)
+            //1) AddTransient (iedere keer oproepen, maar niet opslaan - garbagecollector gaat die iedere opruimen),
+            //2) AddScope (meerdere gebruikers, elk hun eigen singelton) of
+            //3) AddSingleton (1 gebruiker, één instantie ongeacht hoeveel gebruikers, garbagecollector gaat die NIET opruimen)
             // => allemaal methodes voor dependency injection!
+            services.AddTransient<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
