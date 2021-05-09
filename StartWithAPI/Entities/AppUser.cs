@@ -15,5 +15,6 @@ namespace StartWithAPI
 
         public byte[] PasswordSalt { get; set; }
 
+        
     }
 }
