@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using StartWithAPI.DTO;
+using System.Threading.Tasks;
 
 namespace StartWithAPI.Services
 {
@@ -7,5 +8,6 @@ namespace StartWithAPI.Services
         Task<AppUser> RegisterAsync(string userName, string password);
         Task<bool> UserExists(string name);
         Task<AppUser> LoginAsync(string name, string password);
+        
     }
 }

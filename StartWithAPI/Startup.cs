@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using StartWithAPI.Helpers;
 using StartWithAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -43,12 +44,13 @@ namespace StartWithAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
             });
 
-            services.AddTransient<IAppUserService, AppUserService>();
+            services.AddScoped<IAppUserService, AppUserService>();
             //1) AddTransient (iedere keer oproepen, maar niet opslaan - garbagecollector gaat die iedere opruimen),
             //2) AddScope (meerdere gebruikers, elk hun eigen singelton) of
             //3) AddSingleton (1 gebruiker, één instantie ongeacht hoeveel gebruikers, garbagecollector gaat die NIET opruimen)
             // => allemaal methodes voor dependency injection!
-            services.AddTransient<IAccountService, AccountService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

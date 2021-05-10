@@ -17,7 +17,6 @@ namespace StartWithAPI.Services
             _context = context;
         }
 
-
         public async Task<AppUser> RegisterAsync(string userName, string password)
         {
             // gebruik maken van ingebouwde library van cryptografie

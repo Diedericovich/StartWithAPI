@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using StartWithAPI.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,12 @@ namespace StartWithAPI.Services
     public class AppUserService : IAppUserService
     {
         private AppContext _context;
+        private IMapper _mapper;
 
-        public AppUserService(AppContext context)
+        public AppUserService(AppContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
@@ -45,6 +49,15 @@ namespace StartWithAPI.Services
             _context.Attach(user);
             _context.Remove(user);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<MemberDTO> GetMemberAsync(int id)
+        {
+            AppUser user = await this.GetUserAsync(id);
+
+            MemberDTO member = _mapper.Map<MemberDTO>(user);
+
+            return member;
         }
     }
 }

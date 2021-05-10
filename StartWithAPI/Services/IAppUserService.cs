@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using StartWithAPI.DTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StartWithAPI.Services
@@ -10,5 +11,7 @@ namespace StartWithAPI.Services
         Task<AppUser> GetUserAsync(int id);
         Task<IEnumerable<AppUser>> GetUsersAsync();
         Task UpdateUserAsync(int id);
+
+        Task<MemberDTO> GetMemberAsync(int id);
     }
 }
