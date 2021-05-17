@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using StartWithAPI.Helpers;
+using StartWithAPI.Repositories;
 using StartWithAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,7 @@ namespace StartWithAPI
             //3) AddSingleton (1 gebruiker, één instantie ongeacht hoeveel gebruikers, garbagecollector gaat die NIET opruimen)
             // => allemaal methodes voor dependency injection!
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAppUserRepo, AppUserRepo >();
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
         }
 

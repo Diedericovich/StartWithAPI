@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StartWithAPI.DTO;
+using StartWithAPI.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,50 +11,52 @@ namespace StartWithAPI.Services
 {
     public class AppUserService : IAppUserService
     {
-        private AppContext _context;
+        private IAppUserRepo _repo;
         private IMapper _mapper;
 
-        public AppUserService(AppContext context, IMapper mapper)
+        public AppUserService(IAppUserRepo repo, IMapper mapper)
         {
-            _context = context;
+            _repo = repo;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _repo.ToListAsync();
         }
 
         public async Task<AppUser> GetUserAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _repo.FindAsync(id);
         }
 
         public async Task AddUserAsync(AppUser user)
         {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            await _repo.AddAsync(user);
+            await _repo.SaveChangesAsync();
         }
 
         public async Task UpdateUserAsync(int id)
         {
             var user = new AppUser { Id = id };
-            _context.Attach(user);
-            _context.Update(user);
-            await _context.SaveChangesAsync();
+            _repo.Attach(user);
+            _repo.Update(user);
+            await _repo.SaveChangesAsync();
         }
 
         public async Task DeleteUserAsync(int id)
         {
             var user = new AppUser { Id = id };
-            _context.Attach(user);
-            _context.Remove(user);
-            await _context.SaveChangesAsync();
+            _repo.Attach(user);
+            _repo.Remove(user);
+            await _repo.SaveChangesAsync();
         }
+
+
 
         public async Task<MemberDTO> GetMemberAsync(int id)
         {
-            AppUser user = await this.GetUserAsync(id);
+            AppUser user = await _repo.GetUserAsync(id);
 
             MemberDTO member = _mapper.Map<MemberDTO>(user);
 
